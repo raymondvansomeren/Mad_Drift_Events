@@ -9,7 +9,6 @@ module.exports = {
     cooldown: 5,
     execute(bot, message, args)
     {
-        // TODO
         const data = fs.readFileSync('./roles.json');
         const roles = JSON.parse(data).guild.find(element => element.id === message.guild.id).roles;
 

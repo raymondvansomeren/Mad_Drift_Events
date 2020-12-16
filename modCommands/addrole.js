@@ -28,5 +28,7 @@ module.exports = {
         console.log(json.guild.find(element => element.id === message.guild.id).roles);
 
         fs.writeFileSync('./roles.json', JSON.stringify(json));
+
+        message.channel.send(`Added ${args[0]} to joinable roles.`);
     },
 };
