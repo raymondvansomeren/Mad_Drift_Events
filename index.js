@@ -178,7 +178,7 @@ bot.on("guildMemberAdd", function()
             type: 'WATCHING',
         },
     });
-}
+});
 bot.on("guildMemberRemove", function()
 {
     bot.user.setPresence({
@@ -189,7 +189,7 @@ bot.on("guildMemberRemove", function()
             type: 'WATCHING',
         },
     });
-}
+});
 
 bot.once('ready', () =>
 {
