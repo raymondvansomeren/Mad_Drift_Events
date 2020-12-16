@@ -1,0 +1,6 @@
+{
+    "token": "your-bot-token-here",
+    "prefix": "default-prefix",
+    "modPrefix": "moderation-prefix",
+    "invitelink": "invitelink-for-bot"
+}

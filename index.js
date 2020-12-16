@@ -168,11 +168,6 @@ bot.on('message', async message =>
     }
 });
 
-
-
-
-
-
 bot.once('ready', () =>
 {
 
