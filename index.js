@@ -8,6 +8,7 @@ bot.commands = new Discord.Collection();
 bot.modCommands = new Discord.Collection();
 const cooldowns = new Discord.Collection();
 const modCooldowns = new Discord.Collection();
+bot.roles = new Discord.Collection();
 
 let now = new Date();
 
