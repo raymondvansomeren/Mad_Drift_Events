@@ -168,6 +168,29 @@ bot.on('message', async message =>
     }
 });
 
+bot.on("guildMemberAdd", function()
+{
+    bot.user.setPresence({
+        status: 'online',
+        activity: {
+            name: `over ${bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0)} people`,
+            // PLAYING: WATCHING: LISTENING: STREAMING:
+            type: 'WATCHING',
+        },
+    });
+}
+bot.on("guildMemberRemove", function()
+{
+    bot.user.setPresence({
+        status: 'online',
+        activity: {
+            name: `over ${bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0)} people`,
+            // PLAYING: WATCHING: LISTENING: STREAMING:
+            type: 'WATCHING',
+        },
+    });
+}
+
 bot.once('ready', () =>
 {
 
