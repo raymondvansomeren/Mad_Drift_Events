@@ -168,7 +168,7 @@ bot.on('message', async message =>
     }
 });
 
-bot.on("guildMemberAdd", function()
+bot.on('guildMemberAdd', function()
 {
     bot.user.setPresence({
         status: 'online',
@@ -179,7 +179,7 @@ bot.on("guildMemberAdd", function()
         },
     });
 });
-bot.on("guildMemberRemove", function()
+bot.on('guildMemberRemove', function()
 {
     bot.user.setPresence({
         status: 'online',
