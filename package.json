@@ -1,0 +1,23 @@
+{
+  "name": "mad_drift_events",
+  "version": "1.0.0",
+  "description": "Bot for maddrift to add/remove roles for events",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raymondvansomeren/Mad_Drift_Events.git"
+  },
+  "author": "raymond570#2966",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raymondvansomeren/Mad_Drift_Events/issues"
+  },
+  "homepage": "https://github.com/raymondvansomeren/Mad_Drift_Events#readme",
+  "dependencies": {
+    "discord.js": "^12.5.1",
+    "eslint": "^7.15.0"
+  }
+}
