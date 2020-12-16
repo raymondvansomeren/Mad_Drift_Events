@@ -8,7 +8,6 @@ bot.commands = new Discord.Collection();
 bot.modCommands = new Discord.Collection();
 const cooldowns = new Discord.Collection();
 const modCooldowns = new Discord.Collection();
-bot.roles = new Discord.Collection();
 
 let now = new Date();
 
@@ -178,7 +177,7 @@ bot.once('ready', () =>
     bot.user.setPresence({
         status: 'online',
         activity: {
-            name: `over ${bot.users.cache.size} people`,
+            name: `over ${bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0)} people`,
             // PLAYING: WATCHING: LISTENING: STREAMING:
             type: 'WATCHING',
         },

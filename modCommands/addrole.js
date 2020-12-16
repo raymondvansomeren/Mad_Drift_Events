@@ -8,7 +8,6 @@ module.exports = {
     cooldown: 5,
     execute(bot, message, args)
     {
-        // TODO
         if (args.length !== 2)
             return message.channel.send('Please just mention the role you want to add and after that the value you want people to use to join that role (`e@addrole @foo bar`)');
 
