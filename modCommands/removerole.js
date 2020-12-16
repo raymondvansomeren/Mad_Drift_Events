@@ -8,7 +8,8 @@ module.exports = {
     cooldown: 5,
     execute(bot, message, args)
     {
-        // TODO
+        if (!message.member.hasPermission('MANAGE_MESSAGES'))
+            return message.channel.send('You don\'t have the permissions to use this command');
         if (args.length !== 1)
             return message.channel.send('Please just mention/name the role you want to remove (`e@removerole @foo` / `e@removerole foo`)');
 
@@ -24,15 +25,18 @@ module.exports = {
         if (json.guild.find(element => element.id === message.guild.id) === undefined)
             json.guild.push({ 'id': message.guild.id, 'roles': new Array() });
 
-
         const roles = json.guild.find(element => element.id === message.guild.id).roles;
-
-        const index = json.guild.find(element => element.id === message.guild.id).roles.indexOf(roles.find(element => element.name === role.name || element.value === args[0]));
-        if (index > -1)
-            json.guild.find(element => element.id === message.guild.id).roles.splice(index, 1);
+        for (;;)
+        {
+            const index = roles.indexOf(roles.find(element => element.name === role.name || element.value === args[0]));
+            if (index > -1)
+                json.guild.find(element => element.id === message.guild.id).roles.splice(index, 1);
+            else
+                break;
+        }
 
         fs.writeFileSync('./roles.json', JSON.stringify(json));
 
-        message.channel.send(`Removed ${args[0]} from joinable roles.`);
+        message.channel.send(`Removed \`${args[0]}\` from joinable roles.`);
     },
 };
