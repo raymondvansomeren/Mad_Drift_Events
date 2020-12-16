@@ -20,12 +20,11 @@ module.exports = {
 
         const data = fs.readFileSync('./roles.json');
         const json = JSON.parse(data);
-        console.log('Before:');
-        console.log(json.guild.find(element => element.id === message.guild.id).roles);
+        if (json.guild.find(element => element.id === message.guild.id) === undefined)
+            json.guild.push({ 'id': message.guild.id, 'roles': new Array() });
+
 
         json.guild.find(element => element.id === message.guild.id).roles.push({ 'name': role.name, 'id': role.id, 'value': args[1] });
-        console.log('After:');
-        console.log(json.guild.find(element => element.id === message.guild.id).roles);
 
         fs.writeFileSync('./roles.json', JSON.stringify(json));
 

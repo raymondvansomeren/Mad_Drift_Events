@@ -10,6 +10,13 @@ module.exports = {
     execute(bot, message, args)
     {
         const data = fs.readFileSync('./roles.json');
+        const json = JSON.parse(data);
+        if (json.guild.find(element => element.id === message.guild.id) === undefined)
+        {
+            json.guild.push({ 'id': message.guild.id, 'roles': new Array() });
+            fs.writeFileSync('./roles.json', JSON.stringify(json));
+            return message.channel.send('There don\'t seem to be any joinable roles.');
+        }
         const roles = JSON.parse(data).guild.find(element => element.id === message.guild.id).roles;
 
         if (roles === undefined || roles.length === 0)
