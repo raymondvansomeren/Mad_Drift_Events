@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { prefix } = require('../config.json');
 
 module.exports = {
     name: 'join',
@@ -30,7 +31,7 @@ module.exports = {
         });
 
         if (role === undefined)
-            return message.channel.send('No role with that name found. Use `e!joinable` to see all joinable roles.');
+            return message.channel.send(`No role with that name found. Use \`${prefix}joinable\` to see all joinable roles.`);
         message.member.roles.add(role);
         message.channel.send(`Added you to the role \`${role.name}\`.`);
     },

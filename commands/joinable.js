@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const fs = require('fs');
+const { prefix } = require('../config.json');
 
 module.exports = {
     name: 'joinable',
@@ -42,7 +43,7 @@ module.exports = {
                 message.channel.send(reply);
                 reply = new Discord.MessageEmbed(embedConstruction);
             }
-            reply.addField(`${roles[i].name}`, `Use \`e!join ${roles[i].value}\``, true);
+            reply.addField(`${roles[i].name}`, `Use \`${prefix}join ${roles[i].value}\``, true);
         }
 
         message.channel.send(reply);

@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { modPrefix } = require('../config.json');
 
 module.exports = {
     name: 'removerole',
@@ -11,7 +12,7 @@ module.exports = {
         if (!message.member.hasPermission('MANAGE_MESSAGES'))
             return message.channel.send('You don\'t have the permissions to use this command');
         if (args.length !== 1)
-            return message.channel.send('Please just mention/name the role you want to remove (`e@removerole @foo` / `e@removerole foo`)');
+            return message.channel.send(`Please just mention/name the role you want to remove (\`${modPrefix}removerole @foo\` / \`${modPrefix}removerole foo\`)`);
 
         let role = message.mentions.roles.first();
         if (role === undefined)

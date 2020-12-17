@@ -1,17 +1,18 @@
 const fs = require('fs');
+const { prefix, modPrefix } = require('../config.json');
 
 module.exports = {
     name: 'addrole',
     description: 'Adds a role as joinable',
     aliases: [''],
-    usage: '[rolemention] [rolename (no_spaces)(value to give when joining the role : `e!join rolename`]',
+    usage: `[rolemention] [rolename (no_spaces)(value to give when joining the role : \`${prefix}join rolename\`]`,
     cooldown: 5,
     execute(bot, message, args)
     {
         if (!message.member.hasPermission('MANAGE_ROLES'))
             return message.channel.send('You don\'t have the permissions to use this command');
         if (args.length !== 2)
-            return message.channel.send('Please just mention the role you want to add and after that the value you want people to use to join that role (`e@addrole @foo bar`)');
+            return message.channel.send(`Please just mention the role you want to add and after that the value you want people to use to join that role (\`${modPrefix}addrole @foo bar\`)`);
 
         let role = message.mentions.roles.first();
         if (role === undefined)
