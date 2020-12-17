@@ -27,15 +27,19 @@ module.exports = {
         if (role === undefined)
             return message.channel.send('Could not find that role.');
 
-        if (message.mentions.everyone)
+        if (message.mentions.everyone || args[0] === 'everyone')
         {
-            message.guild.members.cache.forEach(function(member)
-            {
-                if (!member.roles.cache.find(r => r.name === role.name))
-                    return;
+            message.guild.members.fetch({ force: true })
+                .then(function(members)
+                {
+                    members.forEach(function(member)
+                    {
+                        if (member.roles.cache.find(r => r.name === role.name))
+                            return;
 
-                member.roles.remove(role);
-            });
+                        member.roles.remove(role);
+                    });
+                });
             message.channel.send(`Removed role \`${role.name}\` from \`**everyone**\`.`);
         }
         else

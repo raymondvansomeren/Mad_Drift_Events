@@ -3,7 +3,12 @@ const fs = require('fs');
 
 const { token, prefix, modPrefix } = require('./config.json');
 
-const bot = new Discord.Client();
+const intents = new Discord.Intents([
+    Discord.Intents.NON_PRIVILEGED,
+    'GUILD_MEMBERS',
+]);
+
+const bot = new Discord.Client({ ws: { intents } });
 bot.commands = new Discord.Collection();
 bot.modCommands = new Discord.Collection();
 const cooldowns = new Discord.Collection();
