@@ -2,7 +2,7 @@ const fs = require('fs');
 
 module.exports = {
     name: 'giverole',
-    description: 'Gives a role to a user (or all users if given @everyone)',
+    description: 'Gives a role to a user (or all users if given "everyone")',
     aliases: [''],
     usage: '[usermention] [rolename]',
     cooldown: 5,

@@ -2,7 +2,7 @@ const fs = require('fs');
 
 module.exports = {
     name: 'takerole',
-    description: 'Removes a role from a user (or all users if given @everyone)',
+    description: 'Removes a role from a user (or all users if given "everyone")',
     aliases: [''],
     usage: '[usermention] [rolename]',
     cooldown: 5,
@@ -40,7 +40,7 @@ module.exports = {
                         member.roles.remove(role);
                     });
                 });
-            message.channel.send(`Removed role \`${role.name}\` from \`**everyone**\`.`);
+            message.channel.send(`Removed role \`${role.name}\` from **\`everyone\`**.`);
         }
         else
         {
