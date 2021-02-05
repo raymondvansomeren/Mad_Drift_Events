@@ -5,7 +5,7 @@ const { prefix } = require('../config.json');
 module.exports = {
     name: 'joinable',
     description: 'Lists joinable roles',
-    aliases: ['roles'],
+    aliases: ['roles', 'list'],
     usage: '',
     cooldown: 5,
     execute(bot, message, args)
@@ -14,7 +14,7 @@ module.exports = {
         const json = JSON.parse(data);
         if (json.guild.find(element => element.id === message.guild.id) === undefined)
         {
-            json.guild.push({ 'id': message.guild.id, 'roles': new Array() });
+            json.guild.push({ 'id': message.guild.id, 'logchannel': '', 'roles': new Array() });
             fs.writeFileSync('./roles.json', JSON.stringify(json));
             return message.channel.send('There don\'t seem to be any joinable roles.');
         }

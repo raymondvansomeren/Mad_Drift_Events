@@ -15,7 +15,7 @@ module.exports = {
         const json = JSON.parse(data);
         if (json.guild.find(element => element.id === message.guild.id) === undefined)
         {
-            json.guild.push({ 'id': message.guild.id, 'roles': new Array() });
+            json.guild.push({ 'id': message.guild.id, 'logchannel': '', 'roles': new Array() });
             fs.writeFileSync('./roles.json', JSON.stringify(json));
         }
         // const roles = JSON.parse(data).guild.find(element => element.id === message.guild.id).roles;
@@ -49,6 +49,14 @@ module.exports = {
                 return message.channel.send(`${member.displayName} already has that role.`);
 
             member.roles.add(role);
+
+            // Log
+            const logChannel = JSON.parse(data).guild.find(element => element.id === message.guild.id).logchannel;
+            if (logChannel !== undefined && logChannel !== '')
+            {
+                const channel = bot.channels.cache.get(logChannel);
+                channel.send(`${message.author}: ${message.content}`);
+            }
             message.channel.send(`Added role \`${role.name}\` to \`${member.displayName}\`.`);
         }
     },

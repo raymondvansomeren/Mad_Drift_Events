@@ -24,7 +24,7 @@ module.exports = {
         const data = fs.readFileSync('./roles.json');
         const json = JSON.parse(data);
         if (json.guild.find(element => element.id === message.guild.id) === undefined)
-            json.guild.push({ 'id': message.guild.id, 'roles': new Array() });
+            json.guild.push({ 'id': message.guild.id, 'logchannel': '', 'roles': new Array() });
 
         const roles = json.guild.find(element => element.id === message.guild.id).roles;
         for (;;)
@@ -37,6 +37,14 @@ module.exports = {
         }
 
         fs.writeFileSync('./roles.json', JSON.stringify(json));
+
+        // Log
+        const logChannel = JSON.parse(data).guild.find(element => element.id === message.guild.id).logchannel;
+        if (logChannel !== undefined && logChannel !== '')
+        {
+            const channel = bot.channels.cache.get(logChannel);
+            channel.send(`${message.author}: ${message.content}`);
+        }
 
         message.channel.send(`Removed \`${args[0]}\` from joinable roles.`);
     },

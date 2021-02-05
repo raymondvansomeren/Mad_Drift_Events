@@ -24,13 +24,21 @@ module.exports = {
         const data = fs.readFileSync('./roles.json');
         const json = JSON.parse(data);
         if (json.guild.find(element => element.id === message.guild.id) === undefined)
-            json.guild.push({ 'id': message.guild.id, 'roles': new Array() });
+            json.guild.push({ 'id': message.guild.id, 'logchannel': '', 'roles': new Array() });
 
         if (json.guild.find(element => element.id === message.guild.id).roles.find(element => element.name === role.name || element.value === args[1]))
             return message.channel.send('That role already exists in the joinable roles.');
         json.guild.find(element => element.id === message.guild.id).roles.push({ 'name': role.name, 'id': role.id, 'value': args[1] });
 
         fs.writeFileSync('./roles.json', JSON.stringify(json));
+
+        // Log
+        const logChannel = JSON.parse(data).guild.find(element => element.id === message.guild.id).logchannel;
+        if (logChannel !== undefined && logChannel !== '')
+        {
+            const channel = bot.channels.cache.get(logChannel);
+            channel.send(`${message.author}: ${message.content}`);
+        }
 
         message.channel.send(`Added \`${role.name}\` to joinable roles.`);
     },
