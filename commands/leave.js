@@ -31,7 +31,17 @@ module.exports = {
         });
 
         if (role === undefined)
-            return message.channel.send(`No role with that name found. Use \`${prefix}joinable\` to see all joinable roles.`);
+        {
+            return message.channel.send(`No role with that name found. Use \`${prefix}joinable\` to see all joinable roles.`)
+                .then(msg =>
+                {
+                    if (message.guild.me.hasPermission('MANAGE_MESSAGES'))
+                    {
+                        message.delete({ timeout: 5000 });
+                        msg.delete({ timeout: 5000 });
+                    }
+                });
+        }
         message.member.roles.remove(role);
 
         // Log
