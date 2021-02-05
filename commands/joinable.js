@@ -46,6 +46,14 @@ module.exports = {
             reply.addField(`${roles[i].name}`, `Use \`${prefix}join ${roles[i].value}\``, true);
         }
 
-        message.channel.send(reply);
+        message.channel.send(reply)
+            .then(msg =>
+            {
+                if (message.guild.me.hasPermission('MANAGE_MESSAGES'))
+                {
+                    message.delete({ timeout: 15000 });
+                    msg.delete({ timeout: 15000 });
+                }
+            });
     },
 };

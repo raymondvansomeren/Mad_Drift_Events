@@ -57,7 +57,15 @@ module.exports = {
                 const channel = bot.channels.cache.get(logChannel);
                 channel.send(`${message.author}: ${message.content}`);
             }
-            message.channel.send(`Added role \`${role.name}\` to \`${member.displayName}\`.`);
+            message.channel.send(`Added role \`${role.name}\` to \`${member.displayName}\`.`)
+                .then(msg =>
+                {
+                    if (message.guild.me.hasPermission('MANAGE_MESSAGES'))
+                    {
+                        message.delete({ timeout: 5000 });
+                        msg.delete({ timeout: 5000 });
+                    }
+                });
         }
     },
 };

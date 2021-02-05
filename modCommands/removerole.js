@@ -46,6 +46,14 @@ module.exports = {
             channel.send(`${message.author}: ${message.content}`);
         }
 
-        message.channel.send(`Removed \`${args[0]}\` from joinable roles.`);
+        message.channel.send(`Removed \`${args[0]}\` from joinable roles.`)
+            .then(msg =>
+            {
+                if (message.guild.me.hasPermission('MANAGE_MESSAGES'))
+                {
+                    message.delete({ timeout: 5000 });
+                    msg.delete({ timeout: 5000 });
+                }
+            });
     },
 };

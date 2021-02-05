@@ -14,6 +14,14 @@ module.exports = {
                 const tt = new Date();
                 const ping = tt - t;
                 messages.edit(`Pong! Latency is ${ping} ms`);
+            })
+            .then(msg =>
+            {
+                if (message.guild.me.hasPermission('MANAGE_MESSAGES'))
+                {
+                    message.delete({ timeout: 10000 });
+                    msg.delete({ timeout: 10000 });
+                }
             });
     },
 };

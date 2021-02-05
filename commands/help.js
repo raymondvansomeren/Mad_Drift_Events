@@ -39,6 +39,14 @@ module.exports =
 
         data.push(`**Cooldown:** ${command.cooldown || 3} second(s)`);
 
-        message.channel.send(data, { split: true });
+        message.channel.send(data, { split: true })
+            .then(msg =>
+            {
+                if (message.guild.me.hasPermission('MANAGE_MESSAGES'))
+                {
+                    message.delete({ timeout: 15000 });
+                    msg.delete({ timeout: 15000 });
+                }
+            });
     },
 };
