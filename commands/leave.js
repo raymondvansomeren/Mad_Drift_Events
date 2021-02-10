@@ -15,12 +15,30 @@ module.exports = {
         {
             json.guild.push({ 'id': message.guild.id, 'logchannel': '', 'roles': new Array() });
             fs.writeFileSync('./roles.json', JSON.stringify(json));
-            return message.channel.send('There don\'t seem to be any roles to leave.');
+            return message.channel.send('There don\'t seem to be any roles to leave.')
+                .then(msg =>
+                {
+                    if (message.guild.me.hasPermission('MANAGE_MESSAGES'))
+                    {
+                        message.delete({ timeout: 5000 });
+                        msg.delete({ timeout: 5000 });
+                    }
+                });
         }
         const roles = JSON.parse(data).guild.find(element => element.id === message.guild.id).roles;
 
         if (roles === undefined || roles.length === 0)
-            return message.channel.send('There don\'t seem to be any roles to leave.');
+        {
+            return message.channel.send('There don\'t seem to be any roles to leave.')
+                .then(msg =>
+                {
+                    if (message.guild.me.hasPermission('MANAGE_MESSAGES'))
+                    {
+                        message.delete({ timeout: 5000 });
+                        msg.delete({ timeout: 5000 });
+                    }
+                });
+        }
 
         const role = message.guild.roles.cache.find(r =>
         {

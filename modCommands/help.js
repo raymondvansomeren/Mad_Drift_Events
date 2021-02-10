@@ -19,14 +19,32 @@ module.exports =
                 data.push(`:white_small_square: **${cmd}**`);
             data.push(`\nYou can send \`${modPrefix}help [command name]\` to get info on a specific command!`);
 
-            return message.channel.send(data, { split: true });
+            return message.channel.send(data, { split: true })
+                .then(msg =>
+                {
+                    if (message.guild.me.hasPermission('MANAGE_MESSAGES'))
+                    {
+                        message.delete({ timeout: 15000 });
+                        msg.delete({ timeout: 15000 });
+                    }
+                });
         }
 
         const name = args[0].toLowerCase();
         const command = modCommands.get(name) || modCommands.find(c => c.aliases && c.aliases.includes(name));
 
         if (!command)
-            return message.reply('that\'s not a valid command!');
+        {
+            return message.reply('that\'s not a valid command!')
+                .then(msg =>
+                {
+                    if (message.guild.me.hasPermission('MANAGE_MESSAGES'))
+                    {
+                        message.delete({ timeout: 5000 });
+                        msg.delete({ timeout: 5000 });
+                    }
+                });
+        }
 
         data.push(`**Name:** ${command.name}`);
 

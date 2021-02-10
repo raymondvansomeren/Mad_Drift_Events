@@ -16,12 +16,30 @@ module.exports = {
         {
             json.guild.push({ 'id': message.guild.id, 'logchannel': '', 'roles': new Array() });
             fs.writeFileSync('./roles.json', JSON.stringify(json));
-            return message.channel.send('There don\'t seem to be any joinable roles.');
+            return message.channel.send('There don\'t seem to be any joinable roles.')
+                .then(msg =>
+                {
+                    if (message.guild.me.hasPermission('MANAGE_MESSAGES'))
+                    {
+                        message.delete({ timeout: 5000 });
+                        msg.delete({ timeout: 5000 });
+                    }
+                });
         }
         const roles = JSON.parse(data).guild.find(element => element.id === message.guild.id).roles;
 
         if (roles === undefined || roles.length === 0)
-            return message.channel.send('There don\'t seem to be any joinable roles.');
+        {
+            return message.channel.send('There don\'t seem to be any joinable roles.')
+                .then(msg =>
+                {
+                    if (message.guild.me.hasPermission('MANAGE_MESSAGES'))
+                    {
+                        message.delete({ timeout: 5000 });
+                        msg.delete({ timeout: 5000 });
+                    }
+                });
+        }
 
         const embedConstruction = {
             color: '#9D1731',
@@ -40,7 +58,15 @@ module.exports = {
         {
             if (i % 21 === 0 && i !== 0)
             {
-                message.channel.send(reply);
+                message.channel.send(reply)
+                    .then(msg =>
+                    {
+                        if (message.guild.me.hasPermission('MANAGE_MESSAGES'))
+                        {
+                            message.delete({ timeout: 15000 });
+                            msg.delete({ timeout: 15000 });
+                        }
+                    });
                 reply = new Discord.MessageEmbed(embedConstruction);
             }
             reply.addField(`${roles[i].name}`, `Use \`${prefix}join ${roles[i].value}\``, true);

@@ -8,8 +8,18 @@ module.exports = {
     cooldown: 5,
     execute(bot, message, args)
     {
-        if (!message.member.hasPermission('MANAGE_MESSAGES'))
-            return message.channel.send('You don\'t have the permissions to use this command');
+        if (!message.member.hasPermission('MANAGE_MESSAGES') || !message.member.hasPermission('MANAGE_CHANNELS'))
+        {
+            return message.channel.send('You don\'t have the permissions to use this command')
+                .then(msg =>
+                {
+                    if (message.guild.me.hasPermission('MANAGE_MESSAGES'))
+                    {
+                        message.delete({ timeout: 5000 });
+                        msg.delete({ timeout: 5000 });
+                    }
+                });
+        }
 
         let channelID = '0';
         if (args.length > 0)
