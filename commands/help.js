@@ -22,11 +22,11 @@ module.exports =
             return message.channel.send(data, { split: true })
                 .then(msg =>
                 {
-                    if (message.guild.me.hasPermission('MANAGE_MESSAGES'))
-                    {
-                        message.delete({ timeout: 15000 });
-                        msg.delete({ timeout: 15000 });
-                    }
+                    // if (message.guild.me.hasPermission('MANAGE_MESSAGES'))
+                    // {
+                    //     message.delete({ timeout: 15000 });
+                    //     msg.delete({ timeout: 15000 });
+                    // }
                 });
         }
 
@@ -60,11 +60,11 @@ module.exports =
         message.channel.send(data, { split: true })
             .then(msg =>
             {
-                if (message.guild.me.hasPermission('MANAGE_MESSAGES'))
-                {
-                    message.delete({ timeout: 15000 });
-                    msg.delete({ timeout: 15000 });
-                }
+                // if (message.guild.me.hasPermission('MANAGE_MESSAGES'))
+                // {
+                //     message.delete({ timeout: 15000 });
+                //     msg.delete({ timeout: 15000 });
+                // }
             });
     },
 };

@@ -75,11 +75,11 @@ module.exports = {
         message.channel.send(reply)
             .then(msg =>
             {
-                if (message.guild.me.hasPermission('MANAGE_MESSAGES'))
-                {
-                    message.delete({ timeout: 15000 });
-                    msg.delete({ timeout: 15000 });
-                }
+                // if (message.guild.me.hasPermission('MANAGE_MESSAGES'))
+                // {
+                //     message.delete({ timeout: 15000 });
+                //     msg.delete({ timeout: 15000 });
+                // }
             });
     },
 };

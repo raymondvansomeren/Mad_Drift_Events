@@ -63,11 +63,11 @@ module.exports = {
             message.channel.send(`Added role \`${role.name}\` to **\`everyone\`**.`)
                 .then(msg =>
                 {
-                    if (message.guild.me.hasPermission('MANAGE_MESSAGES'))
-                    {
-                        message.delete({ timeout: 5000 });
-                        msg.delete({ timeout: 5000 });
-                    }
+                    // if (message.guild.me.hasPermission('MANAGE_MESSAGES'))
+                    // {
+                    //     message.delete({ timeout: 5000 });
+                    //     msg.delete({ timeout: 5000 });
+                    // }
                 });
         }
         else
@@ -98,11 +98,11 @@ module.exports = {
             message.channel.send(`Added role \`${role.name}\` to \`${member.displayName}\`.`)
                 .then(msg =>
                 {
-                    if (message.guild.me.hasPermission('MANAGE_MESSAGES'))
-                    {
-                        message.delete({ timeout: 5000 });
-                        msg.delete({ timeout: 5000 });
-                    }
+                    // if (message.guild.me.hasPermission('MANAGE_MESSAGES'))
+                    // {
+                    //     message.delete({ timeout: 5000 });
+                    //     msg.delete({ timeout: 5000 });
+                    // }
                 });
         }
     },
