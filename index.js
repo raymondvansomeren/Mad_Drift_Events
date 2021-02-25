@@ -333,7 +333,8 @@ bot.once('ready', () =>
             const embed = new Discord.MessageEmbed()
                 .setColor('RANDOM')
                 .setDescription(description)
-                .setFooter(interaction.member.user.username + '#' + interaction.member.user.discriminator);
+                .setThumbnail('https://cdn.discordapp.com/avatars/' + interaction.member.user.id + '/' + interaction.member.user.avatar + '.png')
+                .setFooter(interaction.member.user.username + '#' + interaction.member.user.discriminator, 'https://cdn.discordapp.com/avatars/' + interaction.member.user.id + '/' + interaction.member.user.avatar + '.png');
             let nickname = '';
             if (interaction.member.nick !== null)
             {
@@ -347,7 +348,8 @@ bot.once('ready', () =>
                 
             const embed2 = new Discord.MessageEmbed()
                 .setDescription(description)
-                .setTitle('Author: ' + interaction.member.user.username + '#' + interaction.member.user.discriminator + ' / ' + nickname);
+                .setTitle('Author: ' + interaction.member.user.username + '#' + interaction.member.user.discriminator + ' / ' + nickname)
+                .setThumbnail('https://cdn.discordapp.com/avatars/' + interaction.member.user.id + '/' + interaction.member.user.avatar + '.png');
             bot.channels.cache.get('814636409125470208').send(embed2);
             
             bot.api.interactions(interaction.id, interaction.token).callback.post({
