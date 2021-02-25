@@ -230,7 +230,28 @@ bot.on('guildMemberRemove', function()
 
 bot.once('ready', () =>
 {
-    bot.api.applications(bot.user.id).commands.post({
+    //DELETE COMMANDS
+    //bot.api.applications(bot.user.id).commands.get()
+    //.then(cmds =>
+    //    {
+    //        cmds.forEach(cmd =>
+    //            {
+    //                console.log(cmd);
+    //                bot.api.applications(bot.user.id).commands(cmd.id).delete()
+    //            })
+    //    });
+    //bot.api.applications(bot.user.id).guilds('555749267667550251').commands.get()
+    //.then(cmds =>
+    //    {
+    //        cmds.forEach(cmd =>
+    //            {
+    //                console.log(cmd);
+    //                bot.api.applications(bot.user.id).guilds('555749267667550251').commands(cmd.id).delete()
+    //            })
+    //    });
+    
+    // /ECHO COMMAND
+    bot.api.applications(bot.user.id).guilds('555749267667550251').commands.post({
         data: {
             name: 'echo',
             description: 'Echos your text as an embed!',
@@ -251,12 +272,29 @@ bot.once('ready', () =>
             ],
         },
     });
+    // /CHAT COMMAND
+    bot.api.applications(bot.user.id).guilds('555749267667550251').commands.post({
+        data: {
+            name: 'chat',
+            description: 'Chat with embeds!',
+
+            options: [
+                {
+                    name: 'message',
+                    description: 'Your message',
+                    type: 3,
+                    required: true,
+                },
+            ],
+        },
+    });
     
     bot.ws.on('INTERACTION_CREATE', async (interaction) =>
     {
         const command = interaction.data.name.toLowerCase();
         const args = interaction.data.options;
-        if(command == 'echo') {
+        // /ECHO COMMAND
+        if(command === 'echo') {
             const title = args.find(arg => arg.name.toLowerCase() == 'title').value;
             const description = args.find(arg => arg.name.toLowerCase() == 'content').value;
             const embed = new Discord.MessageEmbed()
@@ -288,6 +326,36 @@ bot.once('ready', () =>
                     }
                 });
             }
+        }
+        
+        if(command === 'chat') {
+            const description = args.find(arg => arg.name.toLowerCase() == 'message').value;
+            const embed = new Discord.MessageEmbed()
+                .setColor('RANDOM')
+                .setDescription(description)
+                .setFooter(interaction.member.user.username + '#' + interaction.member.user.discriminator);
+            let nickname = '';
+            if (interaction.member.nick !== null)
+            {
+                nickname = interaction.member.nick;
+            }
+            else
+            {
+                nickname = interaction.member.user.username;
+            }
+            embed.setTitle(nickname);
+                
+            const embed2 = new Discord.MessageEmbed()
+                .setDescription(description)
+                .setTitle('Author: ' + interaction.member.user.username + '#' + interaction.member.user.discriminator + ' / ' + nickname);
+            bot.channels.cache.get('814636409125470208').send(embed2);
+            
+            bot.api.interactions(interaction.id, interaction.token).callback.post({
+                data: {
+                    type: 3,
+                    data: await createAPIMessage(interaction, embed)
+                }
+            });
         }
     });
 
