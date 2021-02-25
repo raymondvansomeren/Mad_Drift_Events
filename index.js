@@ -230,6 +230,66 @@ bot.on('guildMemberRemove', function()
 
 bot.once('ready', () =>
 {
+    bot.api.applications(bot.user.id).commands.post({
+        data: {
+            name: 'echo',
+            description: 'Echos your text as an embed!',
+
+            options: [
+                {
+                    name: 'title',
+                    description: 'Title of the embed',
+                    type: 3,
+                    required: true,
+                },
+                {
+                    name: 'content',
+                    description: 'Content of the embed',
+                    type: 3,
+                    required: true,
+                },
+            ],
+        },
+    });
+    
+    bot.ws.on('INTERACTION_CREATE', async (interaction) =>
+    {
+        const command = interaction.data.name.toLowerCase();
+        const args = interaction.data.options;
+        if(command == 'echo') {
+            const title = args.find(arg => arg.name.toLowerCase() == 'title').value;
+            const description = args.find(arg => arg.name.toLowerCase() == 'content').value;
+            const embed = new Discord.MessageEmbed()
+                .setTitle(title)
+                .setColor('RANDOM')
+                .setDescription(description);
+            
+            const userPerms = new Discord.Permissions(Number(interaction.member.permissions));
+
+            if (userPerms.has('ADMINISTRATOR'))
+            {
+                bot.api.interactions(interaction.id, interaction.token).callback.post({
+                    data: {
+                        type: 3,
+                        data: await createAPIMessage(interaction, embed)
+                    }
+                });
+            }
+            else
+            {
+                bot.api.interactions(interaction.id, interaction.token).callback.post({
+                    data: {
+                        type: 3,
+                        data: 
+                        {
+                            content: 'You can\'t use this command',
+                            flags: 1 << 6
+                        },
+                    }
+                });
+            }
+        }
+    });
 
     now = new Date();
     console.log(now.toUTCString(), ': Ready!');
@@ -243,5 +303,13 @@ bot.once('ready', () =>
         },
     });
 });
+
+async function createAPIMessage(interaction, content) {
+    const apiMessage = await Discord.APIMessage.create(bot.channels.resolve(interaction.channel_id), content)
+        .resolveData()
+        .resolveFiles();
+    
+    return { ...apiMessage.data, files: apiMessage.files };
+}
 
 bot.login(token);
