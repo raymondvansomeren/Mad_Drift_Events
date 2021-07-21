@@ -231,26 +231,29 @@ bot.on('guildMemberRemove', function()
 bot.once('ready', () =>
 {
     //DELETE COMMANDS
-    //bot.api.applications(bot.user.id).commands.get()
-    //.then(cmds =>
-    //    {
-    //        cmds.forEach(cmd =>
-    //            {
-    //                console.log(cmd);
-    //                bot.api.applications(bot.user.id).commands(cmd.id).delete()
-    //            })
-    //    });
-    //bot.api.applications(bot.user.id).guilds('555749267667550251').commands.get()
-    //.then(cmds =>
-    //    {
-    //        cmds.forEach(cmd =>
-    //            {
-    //                console.log(cmd);
-    //                bot.api.applications(bot.user.id).guilds('555749267667550251').commands(cmd.id).delete()
-    //            })
-    //    });
+    /*
+    bot.api.applications(bot.user.id).commands.get()
+    .then(cmds =>
+        {
+            cmds.forEach(cmd =>
+                {
+                    console.log(cmd);
+                    bot.api.applications(bot.user.id).commands(cmd.id).delete()
+                })
+        });
+    bot.api.applications(bot.user.id).guilds('555749267667550251').commands.get()
+    .then(cmds =>
+        {
+            cmds.forEach(cmd =>
+                {
+                    console.log(cmd);
+                    bot.api.applications(bot.user.id).guilds('555749267667550251').commands(cmd.id).delete()
+                })
+        });
+    */
     
     // /ECHO COMMAND
+    /*
     bot.api.applications(bot.user.id).guilds('555749267667550251').commands.post({
         data: {
             name: 'echo',
@@ -360,12 +363,13 @@ bot.once('ready', () =>
             });
         }
     });
+    */
 
     now = new Date();
     console.log(now.toUTCString(), ': Ready!');
 
     bot.user.setPresence({
-        status: 'online',
+        status: 'dnd',
         activity: {
             name: `over ${bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0)} people`,
             // PLAYING: WATCHING: LISTENING: STREAMING:

@@ -42,7 +42,13 @@ module.exports = {
 
         const role = message.guild.roles.cache.find(r =>
         {
-            const jsonRole = roles.find(element => element.value === args[0]);
+            const jsonRole = roles.find(element =>
+            {
+                if (element !== undefined && args[0] !== undefined)
+                {
+                    return element.value.toLowerCase() === args[0].toLowerCase();
+                }
+            });
             if (jsonRole === undefined)
                 return undefined;
             return r.name === jsonRole.name;
