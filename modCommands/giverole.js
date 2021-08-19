@@ -49,6 +49,9 @@ module.exports = {
 
         if (message.mentions.everyone || args[0] === 'everyone')
         {
+            if (!message.member.hasPermission('ADMINISTRATOR'))
+                return message.channel.send('You are not allow to set roles to everyone');
+
             message.guild.members.fetch({ force: true })
                 .then(function(members)
                 {
